@@ -14,3 +14,9 @@ See [here](https://learn.sparkfun.com/tutorials/makey-makey-advanced-guide) how 
 
 
 Enjoy :)
+
+
+
+### Change Log
+
++ v0.1 - First working version
