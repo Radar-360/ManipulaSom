@@ -13,43 +13,30 @@
   I can not be held responsible for any harm caused :D  
 */
 
-#define NUM_INPUTS 18
+#include <stdlib.h>
+
+#define NUM_INPUTS 16
 // keys
 // edit this array to change the keys pressed 
 int keys[NUM_INPUTS] = {
   'h','j','t','y','g','m',    // top of makey makey board (up, down, left, right, space, click)
   'a','w','s','r','d', 'f',   // left side of female header
-  'k','x','c','v','b','n'     // right side of female header
-};
-// cap sense threshold for each pin
-// this number is proportional to the capacitance on the pin that will count as a press
-// it is units of a very small unit of time, in iterations through an unrolled loop
-// higher values make it less sensitive (i.e. require larger capacitance)
-/*int capThresholds[NUM_INPUTS] = {
-  2, 2, 2, 2, 2, 2,
-  2, 2, 2, 2, 2, 2,
-  2, 2, 2, 2, 2, 2,jj
-};*/
-int capThresholds[NUM_INPUTS] = {
-  12, 12, 12, 12, 12, 12,
-  12, 12, 12, 12, 12, 12,
-  12, 12, 12, 12, 12, 12,
+  'k','x','c','v'     // right side of female header
 };
 
 int pinNumbers[NUM_INPUTS] = {
   12, 8, 13, 15, 7, 6,     
   5, 4, 3, 2, 1, 0,        
-  23, 22, 21, 20, 19, 18   
+  23, 22, 21, 20   
 };
+
 const int outputPin = 14; // pin D14, leftmost pin on the output header
 boolean pressed[NUM_INPUTS];
-
-#include <Keyboard.h>
-#include <Mouse.h>
-#include "settings.h"
+byte sbuf[NUM_INPUTS]; // serial buffer to receive messages from max
 
 void setup(){
-  Keyboard.begin();
+  //Keyboard.begin();
+  Serial.begin(9600);
   for (int i=0; i<NUM_INPUTS; i++) {
     pressed[i] = false;
   }
@@ -57,20 +44,13 @@ void setup(){
   digitalWrite(outputPin, LOW);
 }
 void loop() { 
-  for (int i=0; i<NUM_INPUTS; i++) {                      // for each pin
-    if (readCapacitivePin(pinNumbers[i])>capThresholds[i]){       // if we detect a touch on the pin
-      if (!pressed[i]) {                                          // and if we're not already pressed
-        Keyboard.press(keys[i]);                                        // send the key press
-        pressed[i] = true;                                              // remember it was pressed
-      }
-    } 
-    else {                                                  // if we don't a detect touch on the pin
-      if (pressed[i]) {                                           // if this key was pressed before
-        Keyboard.release(keys[i]);                                   // send the key release
-        pressed[i] = false;                                          // remember we are not pressed
-      }        
-    }
+  for(int i=0; i < NUM_INPUTS; i++){
+    Serial.print(i);
+    Serial.print(" ");
+    Serial.println(readCapacitivePin(pinNumbers[i]));
+    // Output: [index, value]  
   }
+  
   // OUTPUT
   // output pin D14 goes high while any input is pressed
   boolean anythingIsPressed = false;
@@ -85,7 +65,9 @@ void loop() {
   else {
     digitalWrite(outputPin, LOW);
   }
-}  
+
+}
+  
 // CapacitiveSensor tutorial from http://www.arduino.cc/playground/Code/CapacitiveSensor
 // readCapacitivePin
 //  Input: Arduino pin number
