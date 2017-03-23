@@ -31,6 +31,20 @@
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"id" : "obj-27",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 801.5, 150.0, 52.0, 18.0 ],
+					"text" : "loadbang"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
 					"fontsize" : 13.0,
 					"frgb" : 0.0,
 					"id" : "obj-25",
@@ -106,7 +120,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
 					"patching_rect" : [ 771.0, 150.0, 22.0, 18.0 ],
-					"presentation_rect" : [ 945.0, 420.0, 0.0, 0.0 ],
 					"text" : "t b"
 				}
 
@@ -1303,7 +1316,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 34.0, 190.0, 89.0, 18.0 ],
-					"restore" : [ "" ],
+					"restore" : [ "Bluetooth-Incoming-Port" ],
 					"saved_object_attributes" : 					{
 						"parameter_enable" : 0
 					}
@@ -1639,7 +1652,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-4",
-					"items" : "<empty>",
+					"items" : [ "Bluetooth-Incoming-Port", ",", "iPhonedeJoaoLobato-Wire" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1935,6 +1948,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-11", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-27", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-16", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
@@ -2133,7 +2155,7 @@
 ,
 		"dependency_cache" : [ 			{
 				"name" : "cap2note.maxpat",
-				"bootpath" : "/Users/tiago/PinhoRepos/RadarRepos/ManipulaSom/MakeyMakey",
+				"bootpath" : "/Users/tiago/PinhoRepos/RadarRepos/ManipulaSom/MakeyMakey/MakeyMakeyMIDI_middleware",
 				"patcherrelativepath" : ".",
 				"type" : "JSON",
 				"implicit" : 1
